@@ -1,4 +1,4 @@
-```markdown
+
 # Gitleaks Secret Scanning Documentation
 
 ## Setup Instructions
