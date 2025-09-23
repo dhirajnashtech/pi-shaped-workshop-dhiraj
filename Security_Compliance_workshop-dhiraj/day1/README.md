@@ -18,6 +18,8 @@
    ```
    gitleaks detect --source .
    ```
+   <img width="635" height="325" alt="gitleaks_before" src="https://github.com/user-attachments/assets/1794e9c6-b8e2-4bd4-b0ee-193a96411923" />
+
 
 ## Removing Detected Secrets
 
@@ -31,7 +33,11 @@
    ```
    sudo apt install git-filter-repo
    git filter-repo --replace-text <(echo "REMOVED==>REMOVED") --force
+   gitleaks detect --source .
+   
    ```
+   <img width="621" height="325" alt="gitleaks_after" src="https://github.com/user-attachments/assets/adfd9a42-21ac-4ef0-aa60-47631342a1e5" />
+
 
 ## Shift-Left Security Benefits
 
