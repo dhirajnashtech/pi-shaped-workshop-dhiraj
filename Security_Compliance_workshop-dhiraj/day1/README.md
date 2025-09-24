@@ -6,8 +6,7 @@
 1. **Install Gitleaks**  
    Download the latest Gitleaks release binary from the [official GitHub releases](https://github.com/gitleaks/gitleaks/releases) or install via package manager:
    ```
-   wget https://github.com/gitleaks/gitleaks/releases/download/v8.28.0/gitleaks-linux-amd64.tar.gz
-   tar -xzf gitleaks-linux-amd64.tar.gz
+   curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.28.0/gitleaks_8.28.0_linux_x64.tar.gz | tar -xz
    sudo mv gitleaks /usr/local/bin/
    gitleaks --version
    ```
