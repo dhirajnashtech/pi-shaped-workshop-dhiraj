@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: zap-report
-        path: day2/zap_report.html
+        path: Security_Compliance_workshop-dhiraj/day2/zap_report.html
 
     - name: Stop and remove Juice Shop container
       if: always()
