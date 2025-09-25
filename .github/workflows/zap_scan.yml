@@ -36,10 +36,10 @@ jobs:
         fail_action: true
 
     - name: Upload ZAP Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: zap-report
-        path: day2/zap-reports/zap_report.html
+        path: day2/zap_report.html
 
     - name: Stop and remove Juice Shop container
       if: always()
