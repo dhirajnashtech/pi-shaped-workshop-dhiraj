@@ -2,7 +2,11 @@ name: Gitleaks_Scan_Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+    paths:
+      - 'Security_Compliance_workshop-dhiraj/day1/**'
+
   pull_request:
     branches: [ main ]
 
