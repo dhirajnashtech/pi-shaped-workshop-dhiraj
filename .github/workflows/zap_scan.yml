@@ -30,8 +30,10 @@ jobs:
     
     - name: Run OWASP ZAP Baseline Scan
       run: |
-        docker run --network host \
-          -v "$(pwd)/day2/zap-report:/zap/wrk:rw" \
+          mkdir -p zap-reports
+          chmod 777 zap-reports
+          docker run --network host \
+          -v "$(pwd)/zap-report:/zap/wrk:rw" \
           ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
           -t http://localhost:3000 \
           -r zap-report.html || true
@@ -40,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: zap-report
-        path: day2/zap-report/
+        path: zap-reports/
 
     - name: Stop and remove Juice Shop container
       if: always()
