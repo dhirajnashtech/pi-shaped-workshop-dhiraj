@@ -36,6 +36,6 @@ jobs:
       with:
         name: zap-report
         path: |
-          ${{ github.workspace }}/report_json.json
-          ${{ github.workspace }}/report_md.md
-          ${{ github.workspace }}/zap-report.html
+          ${{ github.workspace }}/Security_Compliance_workshop-dhiraj/day2/report_json.json
+          ${{ github.workspace }}/Security_Compliance_workshop-dhiraj/day2/report_md.md
+          ${{ github.workspace }}/Security_Compliance_workshop-dhiraj/day2/zap-report.html
