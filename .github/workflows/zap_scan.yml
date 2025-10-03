@@ -30,12 +30,15 @@ jobs:
           -J report_json.json \
           -w report_md.md \
           -r zap-report.html || true
+          
+    - name: List generated reports
+      run: ls -lh ${{ github.workspace }}      
 
-    - name: Upload ZAP Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: zap-report
-        path: |
-          Security_Compliance_workshop-dhiraj/day2/report_json.json
-          Security_Compliance_workshop-dhiraj/day2/report_md.md
-          Security_Compliance_workshop-dhiraj/day2/zap-report.html
+    # - name: Upload ZAP Report
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: zap-report
+    #     path: |
+    #       Security_Compliance_workshop-dhiraj/day2/report_json.json
+    #       Security_Compliance_workshop-dhiraj/day2/report_md.md
+    #       Security_Compliance_workshop-dhiraj/day2/zap-report.html
