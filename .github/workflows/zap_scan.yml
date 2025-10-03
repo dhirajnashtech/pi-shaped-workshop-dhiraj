@@ -33,7 +33,7 @@ jobs:
           mkdir -p zap-reports
           chmod 777 zap-reports
           docker run --network host \
-          -v "$(pwd)/zap-report:/zap/wrk:rw" \
+          -v ${{ github.workspace }}/zap-report:/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
           -t http://localhost:3000 \
           -r zap-report.html || true
@@ -43,7 +43,7 @@ jobs:
       with:
         name: zap-report
         path: |
-          zap-reports/
+          ${{ github.workspace }}/zap-reports/zap-report.html
 
     - name: Stop and remove Juice Shop container
       if: always()
