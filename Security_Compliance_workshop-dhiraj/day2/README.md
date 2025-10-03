@@ -12,6 +12,5 @@ docker pull bkimminich/juice-shop:latest
 docker run -d --name juice -p 8080:3000 bkimminich/juice-shop:latest
 
 # verify it is up (open in browser)
-# http://localhost:3000
-curl -sSf http://localhost:8080
+http://localhost:8080
 ```
