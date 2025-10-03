@@ -22,3 +22,4 @@ http://localhost:8080
 
 A GitHub Actions workflow (.github/workflows/zap_scan.yml) automates the OWASP ZAP security scan on branches main with paths 'Security_Compliance_workshop-dhiraj/day2/**'. It checks out the code, runs the scan against the target application, and uploads the HTML report as an artifact, ensuring security testing is seamlessly integrated into the development process.
 
+![alt text](image.png)
