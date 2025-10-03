@@ -13,4 +13,9 @@ docker run -d --name juice -p 8080:3000 bkimminich/juice-shop:latest
 
 # verify it is up (open in browser)
 http://localhost:8080
+
 ```
+
+---
+
+## CI/CD Pipeline Integration
