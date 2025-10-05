@@ -97,7 +97,7 @@ jobs:
           name: checkov-report
           path: checkov-report.json
 
-  docker-scan:
+  docker-image-scan:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -105,10 +105,22 @@ jobs:
       - name: Build Docker image
         run: docker build -t flask-demo ./Security_Compliance_workshop-dhiraj/day5
 
-      - name: Scan Docker image with Trivy
+
+      - name: Run Trivy Image Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: image
+          image-ref: flask-demo
+          format: json
+          output: trivy-docker-report.json
+          ignore-unfixed: true
+          vuln-type: "os,library"
         continue-on-error: true
-        run: |
-          trivy image flask-demo --format json > trivy-docker-report.json
+
+      # - name: Scan Docker image with Trivy
+      #   continue-on-error: true
+      #   run: |
+      #     trivy image flask-demo --format json > trivy-docker-report.json
       - name: Upload Docker scan report
         uses: actions/upload-artifact@v4
         with:
