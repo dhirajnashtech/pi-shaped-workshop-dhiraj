@@ -1,8 +1,5 @@
 # Day 5 
 
-Here is the complete **README.md** content in Markdown format, ready for you to copy and paste:
-
----
 
 # 🔐 Vulnerable Flask App Security Pipeline Demo
 
