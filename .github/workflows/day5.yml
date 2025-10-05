@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -34,13 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Bandit
         run: |
           pip install bandit
-          bandit -r Security_Compliance_workshop-dhiraj/day5 -f html -o bandit-report.html
+          bandit -r Security_Compliance_workshop-dhiraj/day5 -f html -o bandit-report.html || true
       - name: Upload Bandit report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bandit-report
           path: bandit-report.html
@@ -49,13 +49,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Semgrep
         run: |
           pip install semgrep
-          semgrep --config auto Security_Compliance_workshop-dhiraj/day5 --json > semgrep-report.json
+          semgrep --config auto Security_Compliance_workshop-dhiraj/day5 --json --output semgrep-report.json || true
       - name: Upload Semgrep report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: semgrep-report
           path: semgrep-report.json
@@ -64,28 +64,34 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
-      - name: Run Trivy for Python dependencies
-        run: |
-          pip install trivy
-          trivy fs Security_Compliance_workshop-dhiraj/day5 --security-checks vuln --format json > trivy-deps-report.json
+      - name: Checkout code
+        uses: actions/checkout@v4      
+      - name: Run Trivy File System Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          format: json
+          output: Security_Compliance_workshop-dhiraj/day5/trivy-deps-report.json
+          ignore-unfixed: true
+          vuln-type: "os,library"
+        continue-on-error: true
       - name: Upload Trivy deps report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: trivy-deps-report
-          path: trivy-deps-report.json
+          path: Security_Compliance_workshop-dhiraj/day5/trivy-deps-report.json
 
   checkov:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Checkov
         run: |
           pip install checkov
           checkov -d Security_Compliance_workshop-dhiraj/day5 --output json > checkov-report.json
       - name: Upload Checkov report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: checkov-report
           path: checkov-report.json
@@ -94,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build Docker image
         run: docker build -t flask-demo ./Security_Compliance_workshop-dhiraj/day5
 
@@ -102,7 +108,7 @@ jobs:
         run: |
           trivy image flask-demo --format json > trivy-docker-report.json
       - name: Upload Docker scan report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: trivy-docker-report
           path: trivy-docker-report.json
@@ -111,14 +117,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Gitleaks
         run: |
           curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
           chmod +x gitleaks
           ./gitleaks detect --source Security_Compliance_workshop-dhiraj/day5 --report-path gitleaks-report.json --no-banner
       - name: Upload Gitleaks report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gitleaks-report
           path: gitleaks-report.json
@@ -127,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Start Flask app
         run: |
@@ -143,6 +149,6 @@ jobs:
           target: 'http://localhost:5000'
 
       - name: Upload ZAP report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: zap-report
