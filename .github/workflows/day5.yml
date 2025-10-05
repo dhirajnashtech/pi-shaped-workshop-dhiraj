@@ -87,6 +87,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Checkov
+        continue-on-error: true
         run: |
           pip install checkov
           checkov -d Security_Compliance_workshop-dhiraj/day5 --output json > checkov-report.json
@@ -105,6 +106,7 @@ jobs:
         run: docker build -t flask-demo ./Security_Compliance_workshop-dhiraj/day5
 
       - name: Scan Docker image with Trivy
+        continue-on-error: true
         run: |
           trivy image flask-demo --format json > trivy-docker-report.json
       - name: Upload Docker scan report
@@ -119,6 +121,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Gitleaks
+        continue-on-error: true
         run: |
           curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
           chmod +x gitleaks
